@@ -27,7 +27,7 @@ export const fetchBirdImage = async (bird: Bird, image_index: number = 1): Promi
 
   try {
 
-    const response = await imageApi.getBirdImage(bird.common_name, image_index);
+    const response = await imageApi.getBirdImage(bird.eBird, image_index);
 
     const imageUrl = URL.createObjectURL(response.data);
 
@@ -35,9 +35,9 @@ export const fetchBirdImage = async (bird: Bird, image_index: number = 1): Promi
 
   } catch (error) {
 
-    console.error(`Failed to fetch image for ${bird.common_name}:`, error);
+    console.error(`Failed to fetch image for ${bird.eBird}:`, error);
 
-    return 'https://via.placeholder.com/400x200?text=No+Image';
+    throw error;
 
   }
 

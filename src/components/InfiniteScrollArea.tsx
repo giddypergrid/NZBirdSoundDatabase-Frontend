@@ -6,10 +6,12 @@ type Props<T, K extends keyof T> = {
     ItemIndexType: K
     items: T[]
     className?: string
+    listClassName?: string
     onItemClick?: (item: T) => void
+    selectedKey?: T[K]
 }
 
-const InfiniteScrollArea = <T, K extends keyof T>({ItemComponent, BatchSize, ItemIndexType, items, className, onItemClick}: Props<T, K>) => {
+const InfiniteScrollArea = <T, K extends keyof T>({ItemComponent, BatchSize, ItemIndexType, items, className, listClassName, onItemClick, selectedKey}: Props<T, K>) => {
 
     const isBatchLoading = useRef<boolean>(false);
     const IntersectionRootRef = useRef<HTMLDivElement>(null); 
@@ -57,12 +59,15 @@ const InfiniteScrollArea = <T, K extends keyof T>({ItemComponent, BatchSize, Ite
 
     return(
         <div ref={IntersectionRootRef} className={className}>
-            <ul className='flex flex-col gap-2'>
+            <ul className={listClassName || 'grid grid-cols-1 sm:grid-cols-2 gap-4'}>
                 {items.slice(0, buttomItemIndex + 1).map((item: T, index)=>{
+                    const isSelected = selectedKey !== undefined && item[ItemIndexType] === selectedKey;
                     return(
                         <li 
                             key={String(item[ItemIndexType])} 
-                            className='hover:bg-gray-100 cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg'
+                            className={`cursor-pointer transition-all duration-200 rounded-2xl ${
+                              isSelected ? 'ring-2 ring-white/40 shadow-lg shadow-white/5' : 'hover:-translate-y-1'
+                            }`}
                             onClick={() => onItemClick && onItemClick(item)}
                         >
                             <ItemComponent 
