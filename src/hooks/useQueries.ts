@@ -1,6 +1,6 @@
 import { useQuery, useQueries } from '@tanstack/react-query';
 import { birdApi, soundApi, imageApi } from 'services/api';
-import { Bird, BirdSound } from 'types/bird';
+import { Bird, BirdSound, BirdSoundFilterParams } from 'types/bird';
 
 // ==================== Bird Queries ====================
 
@@ -29,11 +29,11 @@ export const useBird = (eBird: string) => {
 
 // ==================== Audio Queries ====================
 
-export const useBirdSoundList = (bird: Bird) => {
+export const useBirdSoundList = (bird: Bird, filters?: BirdSoundFilterParams) => {
   return useQuery({
-    queryKey: ['sounds', bird.eBird],
+    queryKey: ['sounds', bird.eBird, filters],
     queryFn: async () => {
-      const response = await soundApi.listByLabel(bird.eBird);
+      const response = await soundApi.listByLabel(bird.eBird, filters);
       return Array.isArray(response.data) ? response.data : [];
     },
     enabled: !!bird.eBird,
@@ -74,12 +74,12 @@ export const useAudioUrl = (birdSound: BirdSound) => {
 
 export const useBirdImage = (bird: Bird, index: number = 0) => {
   return useQuery({
-    queryKey: ['image', bird.common_name, index],
+    queryKey: ['image', bird.eBird, index],
     queryFn: async () => {
-      const response = await imageApi.getBirdImage(bird.common_name, index);
+      const response = await imageApi.getBirdImage(bird.eBird, index);
       return URL.createObjectURL(response.data);
     },
-    enabled: !!bird.common_name,
+    enabled: !!bird.eBird,
     staleTime: Infinity,
     gcTime: 10 * 60 * 1000,
   });

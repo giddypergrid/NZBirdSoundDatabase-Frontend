@@ -5,6 +5,9 @@ export interface Bird {
   common_name: string;
   scientific_name: string;
   extra_name: string | null;
+  description: string | null;
+  sound_description: string | null;
+  naughty_description: string | null;
   created_at: string;        // ISO datetime
   updated_at: string;
 }
@@ -45,4 +48,35 @@ export interface BirdSoundFilterParams {
   recording_mode?: string;
   start_time?: string;   // ISO datetime
   end_time?: string;     // ISO datetime
+}
+
+// ==================== Classify Types ====================
+
+export interface ClassifyPrediction {
+  eBird: string;
+  confidence: number;
+}
+
+export interface ClassifyResponse {
+  eBird: string;
+  confidence: number;
+  top_predictions: ClassifyPrediction[];
+}
+
+// ==================== Semantic Search Types ====================
+
+export interface SearchByDescriptionHit {
+  eBird: string;
+  common_name: string;
+  scientific_name: string;
+  score: number;
+  best_field: 'name' | 'description' | 'sound_description' | 'naughty_description' | string;
+  strong_match: boolean;
+}
+
+export interface SearchByDescriptionResponse {
+  query: string;
+  threshold: number;
+  count: number;
+  results: SearchByDescriptionHit[];
 }

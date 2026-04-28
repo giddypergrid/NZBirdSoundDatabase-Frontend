@@ -1,43 +1,43 @@
 import React from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
-import { images } from '../resources/images'
+const DefaultHeader = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
 
+  const btnClass = 'text-sm text-white/60 hover:text-white transition-colors cursor-pointer';
+  const activeBtnClass = 'text-sm text-white font-medium cursor-pointer';
 
-
-type Props = {}
-
-
-
-const DefaultHeader = (props: Props) => {
+  const scrollToSection = (sectionId: string) => {
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
-
-    <header className="relative z-10 min-w-[320px] w-full h-[160px] overflow-hidden flex justify-center">
-
-        <img src={images.homeHeaderBg} alt="New Zealand Birds Header" className="w-[80%] h-full object-fill rounded-lg" />
-
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-transparent">
-
-          <h1 className="absolute top-[5%] w-full text-[calc(12px_+_2.5vw)] font-extrabold text-white text-center tracking-tighter drop-shadow-2xl whitespace-nowrap">
-
-            New Zealand Bird Sound Database
-
-          </h1>
-
-          <p className="absolute top-[42%] w-full text-[calc(10px_+_0.5vw)] text-white/90 font-medium text-center drop-shadow-xl whitespace-nowrap">
-
-            Explore and listen to bird calls from across Aotearoa
-
-          </p>
-
+    <header className="sticky top-0 z-50 w-full bg-forest-800/90 backdrop-blur-md border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        {/* Left: Logo + Nav */}
+        <div className="flex items-center gap-8">
+          <Link to="/" className="flex items-center group">
+            <span className="text-lg font-serif italic text-white tracking-wide">
+              NZ Bird Database
+            </span>
+          </Link>
+          <nav className="hidden md:flex items-center gap-6">
+            <button onClick={() => scrollToSection('search-section')} className={btnClass}>Search birds</button>
+            <button onClick={() => scrollToSection('database-section')} className={btnClass}>Bird database</button>
+            <Link to="/match" className={location.pathname === '/match' ? activeBtnClass : btnClass}>Match sound</Link>
+          </nav>
         </div>
-
+      </div>
     </header>
-
   )
-
 }
-
-
 
 export default DefaultHeader

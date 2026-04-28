@@ -5,6 +5,8 @@ import {
   BirdListParams,
   BirdSoundFilterParams,
   PaginatedResponse,
+  ClassifyResponse,
+  SearchByDescriptionResponse,
 } from "types/bird";
 import { API_BASE_URL } from "settings";
 
@@ -47,10 +49,35 @@ export const soundApi = {
 
 export const imageApi = {
 
-  getBirdImage: (common_name: string, index: number): Promise<AxiosResponse<Blob>> =>
-    apiClient.get(`/image/${encodeURIComponent(common_name)}/${index}/`, {
+  getBirdImage: (eBird: string, index: number): Promise<AxiosResponse<Blob>> =>
+    apiClient.get(`/image/${encodeURIComponent(eBird)}/${index}/`, {
       responseType: "blob",
     }),
+};
+
+// ==================== Semantic Search Endpoints ====================
+
+export const searchApi = {
+  byDescription: (
+    query: string,
+    topK: number = 4,
+    threshold: number = 0.45,
+  ): Promise<AxiosResponse<SearchByDescriptionResponse>> =>
+    apiClient.get("/search-by-description/", {
+      params: { q: query, top_k: topK, threshold },
+    }),
+};
+
+// ==================== Classify Endpoints ====================
+// Sends raw audio bytes (no multipart). Extension goes as ?ext=flac.
+export const classifyApi = {
+  classify: (audioFile: File): Promise<AxiosResponse<ClassifyResponse>> => {
+    const ext = audioFile.name.split(".").pop()?.toLowerCase() || "";
+    return apiClient.post("/classify/", audioFile, {
+      params: { ext },
+      headers: { "Content-Type": "application/octet-stream" },
+    });
+  },
 };
 
 export default apiClient;
