@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { soundApi, birdApi, imageApi } from 'services/api';
 
 import { Bird, BirdSound } from 'types/bird';
@@ -35,7 +36,10 @@ export const fetchBirdImage = async (bird: Bird, image_index: number = 1): Promi
 
   } catch (error) {
 
-    console.error(`Failed to fetch image for ${bird.eBird}:`, error);
+    // 404 = no image for this bird, expected. Only log unexpected errors.
+    if (!axios.isAxiosError(error) || error.response?.status !== 404) {
+      console.error(`Failed to fetch image for ${bird.eBird}:`, error);
+    }
 
     throw error;
 
