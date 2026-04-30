@@ -1,53 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Bird } from 'types/bird';
-import { fetchAllBirds, fetchBirdImage } from 'helpers/ApiHelper';
+import { useBird, useBirdImages } from 'hooks/useQueries';
 import BirdAudio from 'components/BirdAudioSection';
 import DefaultHeader from 'staticComponents/DefaultHeader';
 import Footer from 'staticComponents/Footer';
 import ImageNotFound from 'components/ImageNotFound';
 
-const MAX_IMAGES = 5;
-
 const BirdDetailPage: React.FC = () => {
   const { eBird } = useParams<{ eBird: string }>();
-  const [bird, setBird] = useState<Bird | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [images, setImages] = useState<string[]>([]);
+  const { data: bird, isLoading } = useBird(eBird ?? '');
+  const images = useBirdImages(bird ?? null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  useEffect(() => {
-    const loadBird = async () => {
-      setLoading(true);
-      const birds = await fetchAllBirds();
-      const found = birds.find(b => b.eBird === eBird);
-      setBird(found || null);
-      setLoading(false);
-    };
-    loadBird();
-  }, [eBird]);
-
-  useEffect(() => {
-    if (!bird) return;
-    const loadImages = async () => {
-      const urls: string[] = [];
-      for (let i = 0; i < MAX_IMAGES; i++) {
-        try {
-          const url = await fetchBirdImage(bird, i);
-          if (url && !url.includes('placeholder')) {
-            urls.push(url);
-          }
-        } catch {
-          break;
-        }
-      }
-      setImages(urls);
-    };
-    loadImages();
-  }, [bird]);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-forest-800">
         <DefaultHeader />
@@ -102,14 +68,12 @@ const BirdDetailPage: React.FC = () => {
               <p className="text-lg text-white/50 italic mb-6">
                 {bird.scientific_name}
               </p>
-              {/* Naughty tagline */}
               {bird.naughty_description && (
                 <p className="text-sm text-amber-200/80 italic mb-5 leading-relaxed">
                   &ldquo;{bird.naughty_description}&rdquo;
                 </p>
               )}
 
-              {/* Main description */}
               <div className="space-y-4 text-sm text-white/70 leading-relaxed">
                 {bird.description ? (
                   <p>{bird.description}</p>
@@ -120,7 +84,6 @@ const BirdDetailPage: React.FC = () => {
                 )}
               </div>
 
-              {/* Sound description */}
               <div className="mt-6 p-4 bg-forest-700/100 border border-white/10 rounded-xl">
                 <p className="text-xs text-white/50 font-medium uppercase tracking-wider mb-2">
                   What it sounds like
@@ -133,7 +96,6 @@ const BirdDetailPage: React.FC = () => {
 
             {/* Right: Image gallery */}
             <div className="flex flex-col gap-4">
-              {/* Main image */}
               <div className="relative aspect-[4/3] bg-forest-700/50 rounded-2xl overflow-hidden border border-white/10">
                 {images.length === 0 ? (
                   <ImageNotFound message="No photos yet" />
@@ -144,7 +106,6 @@ const BirdDetailPage: React.FC = () => {
                     className="w-full h-full object-cover"
                   />
                 )}
-                {/* Nav arrows */}
                 {images.length > 1 && (
                   <>
                     <button
@@ -161,13 +122,11 @@ const BirdDetailPage: React.FC = () => {
                     </button>
                   </>
                 )}
-                {/* Image counter */}
                 <div className="absolute bottom-3 right-3 px-2.5 py-1 bg-black/40 backdrop-blur-sm rounded-full text-xs text-white/80">
                   {activeImageIndex + 1} / {images.length}
                 </div>
               </div>
 
-              {/* Thumbnail strip */}
               {images.length > 1 && (
                 <div className="flex gap-2 overflow-x-auto scrollbar-thin pb-1">
                   {images.map((url, idx) => (

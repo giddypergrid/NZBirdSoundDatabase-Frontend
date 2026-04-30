@@ -62,23 +62,30 @@ export const useAudioUrl = (birdSound: BirdSound) => {
   });
 };
 
-// Batch fetch multiple audio URLs
-// export const useAudioUrls = (filenames: string[]) => {
-//   return useQueries({
-//     queries: filenames.map((filename) => ({
-//       queryKey: ['audio', filename],
-//       queryFn: async () => {
-//         const response = await soundApi.getBirdAudio(filename);
-//         return URL.createObjectURL(response.data);
-//       },
-//       enabled: !!filename,
-//       staleTime: Infinity,
-//       gcTime: 10 * 60 * 1000,
-//     })),
-//   });
-// };
 
 // ==================== Image Queries ====================
+
+// Fetches up to maxImages in parallel; returns only the URLs that succeeded.
+export const useBirdImages = (bird: Bird | null, maxImages: number = 5): string[] => {
+  const results = useQueries({
+    queries: bird
+      ? Array.from({ length: maxImages }, (_, i) => ({
+          queryKey: ['image', bird.eBird, i],
+          queryFn: async () => {
+            const response = await imageApi.getBirdImage(bird.eBird, i);
+            return URL.createObjectURL(response.data);
+          },
+          staleTime: Infinity,
+          gcTime: 10 * 60 * 1000,
+          retry: (failureCount: number, error: unknown) => {
+            if (axios.isAxiosError(error) && error.response?.status === 404) return false;
+            return failureCount < 2;
+          },
+        }))
+      : [],
+  });
+  return results.filter(r => r.isSuccess).map(r => r.data as string);
+};
 
 export const useBirdImage = (bird: Bird, index: number = 0) => {
   return useQuery({

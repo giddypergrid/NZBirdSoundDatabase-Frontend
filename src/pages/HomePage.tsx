@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import SearchBar from "components/SearchBar";
@@ -6,15 +6,15 @@ import DefaultHeader from "staticComponents/DefaultHeader";
 import Footer from "staticComponents/Footer";
 import { Bird } from "types/bird";
 import BirdCard from "components/BirdCard";
-import { fetchAllBirds } from "helpers/ApiHelper";
 import { DEFAULT_BIRD_BATCH_SIZE } from "settings";
 import InfiniteScrollArea from "components/InfiniteScrollArea";
 import { useBirdSearch } from "helpers/useBirdSearch";
 import HeroSection from "components/HeroSection";
 import loadingBirdAnimation from "assets/LoadingBird.json";
+import { useBirdList } from "hooks/useQueries";
 
 const HomePage: React.FC = () => {
-  const [allBirds, setAllBirds] = useState<Bird[]>([]);
+  const { data: allBirds = [] } = useBirdList();
   const {
     filteredBirds,
     handleSearch,
@@ -25,14 +25,6 @@ const HomePage: React.FC = () => {
     searchQuery,
   } = useBirdSearch(allBirds);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const loadBirds = async () => {
-      const birds = await fetchAllBirds();
-      setAllBirds(birds);
-    };
-    loadBirds();
-  }, []);
 
   const handleBirdClick = (bird: Bird) => {
     navigate(`/bird/${encodeURIComponent(bird.eBird)}`);
