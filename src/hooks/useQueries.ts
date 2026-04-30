@@ -1,4 +1,5 @@
 import { useQuery, useQueries } from '@tanstack/react-query';
+import axios from 'axios';
 import { birdApi, soundApi, imageApi } from 'services/api';
 import { Bird, BirdSound, BirdSoundFilterParams } from 'types/bird';
 
@@ -34,7 +35,14 @@ export const useBirdSoundList = (bird: Bird, filters?: BirdSoundFilterParams) =>
     queryKey: ['sounds', bird.eBird, filters],
     queryFn: async () => {
       const response = await soundApi.listByLabel(bird.eBird, filters);
-      return Array.isArray(response.data) ? response.data : [];
+      // Backend uses DRF pagination → {count, next, previous, results: [...]}.
+      // Tolerate both paginated and bare-array shapes for robustness.
+      const data = response.data as unknown;
+      if (Array.isArray(data)) return data as BirdSound[];
+      if (data && Array.isArray((data as { results?: unknown }).results)) {
+        return (data as { results: BirdSound[] }).results;
+      }
+      return [];
     },
     enabled: !!bird.eBird,
     staleTime: 5 * 60 * 1000,
@@ -82,5 +90,10 @@ export const useBirdImage = (bird: Bird, index: number = 0) => {
     enabled: !!bird.eBird,
     staleTime: Infinity,
     gcTime: 10 * 60 * 1000,
+    // 404 = no image for this bird, don't retry. Retry up to 2x on network/5xx.
+    retry: (failureCount, error: unknown) => {
+      if (axios.isAxiosError(error) && error.response?.status === 404) return false;
+      return failureCount < 2;
+    },
   });
 };
