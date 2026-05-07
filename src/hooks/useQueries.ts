@@ -54,7 +54,9 @@ export const useAudioUrl = (birdSound: BirdSound) => {
     queryKey: ['audio', birdSound.filename],
     queryFn: async () => {
       const response = await soundApi.getBirdAudio(birdSound.eBird, birdSound.filename);
-      return URL.createObjectURL(response.data);
+      const contentType = response.headers['content-type'] || 'audio/mpeg';
+      const blob = new Blob([response.data], { type: contentType });
+      return URL.createObjectURL(blob);
     },
     enabled: !!birdSound.filename,
     staleTime: Infinity,
