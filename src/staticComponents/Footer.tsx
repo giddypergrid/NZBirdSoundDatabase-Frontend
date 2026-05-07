@@ -10,7 +10,7 @@ const GITHUB_URL =
 
 const Footer = () => {
   return (
-    <footer className="mt-auto sticky bottom-0 z-30 border-t border-white/10 bg-forest-950/95 backdrop-blur-2xl">
+    <footer className="mt-auto sticky bottom-0 z-30 border-t border-white/10 bg-forest-950/95 backdrop-blur-2xl" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
       <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="text-sm text-white/40">
           &copy; {new Date().getFullYear()} New Zealand Bird Sound Database. All rights reserved.
