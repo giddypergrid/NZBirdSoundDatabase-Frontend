@@ -179,23 +179,23 @@ const LegalPage: React.FC = () => {
                 View CC BY 4.0 license
               </a>
               <a
-                href="https://github.com/giddypergrid/NZBirdSoundDatabase-Frontend"
+                href="https://github.com/giddypergrid/NZBirdSoundDatabase-Backend"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-white/20 text-white/80 hover:bg-white/5 transition-colors"
               >
-                View frontend source on GitHub
+                View backend source on GitHub
               </a>
             </div>
             <p className="mt-4 text-sm text-white/50">
-              This website's frontend source code is open and available at{' '}
+              This website's backend source code is open and available at{' '}
               <a
-                href="https://github.com/giddypergrid/NZBirdSoundDatabase-Frontend"
+                href="https://github.com/giddypergrid/NZBirdSoundDatabase-Backend"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:text-white"
               >
-                github.com/giddypergrid/NZBirdSoundDatabase-Frontend
+                github.com/giddypergrid/NZBirdSoundDatabase-Backend
               </a>
               .
             </p>

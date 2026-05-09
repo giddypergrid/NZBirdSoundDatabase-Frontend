@@ -25,6 +25,7 @@ const DefaultHeader = () => {
         {/* Left: Logo + Nav */}
         <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center group">
+            <img src="/site-logo.png" alt="NZ Bird Sound logo" className="h-8 w-8 rounded-full object-cover mr-2" />
             <span className="text-lg font-serif italic text-white tracking-wide">
               NZ Bird Database
             </span>

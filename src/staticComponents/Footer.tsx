@@ -6,7 +6,7 @@ const linkClasses =
   'text-sm text-white/40 hover:text-white/70 transition-colors underline'
 
 const GITHUB_URL =
-  'https://github.com/giddypergrid/NZBirdSoundDatabase-Frontend'
+  'https://github.com/giddypergrid/NZBirdSoundDatabase-Backend'
 
 const Footer = () => {
   return (
