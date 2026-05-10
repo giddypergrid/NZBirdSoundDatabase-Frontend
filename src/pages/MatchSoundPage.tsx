@@ -13,10 +13,10 @@ const MatchSoundPage: React.FC = () => {
           <div className="text-center mb-10">
             <p className="text-xs text-white/50 font-medium uppercase tracking-wider mb-2">Identify</p>
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Match a bird by its sound
+              Identify a bird by its sound
             </h1>
             <p className="text-white/40 max-w-md mx-auto">
-              Upload a recording and we'll identify the most likely bird species. Click any result to explore that bird.
+              Capture audio or upload a file and we'll identify the most likely bird species.
             </p>
           </div>
 
