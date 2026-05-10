@@ -25,7 +25,7 @@ const DefaultHeader = () => {
         {/* Left: Logo + Nav */}
         <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center group">
-            <img src="/site-logo.png" alt="NZ Bird Sound logo" className="h-8 w-8 rounded-full object-cover mr-2" />
+            <img src="/site-logo.png" alt="NZ Bird Sound logo" className="h-16 w-16 rounded-full object-cover mr-2" />
             <span className="text-lg font-serif italic text-white tracking-wide">
               NZ Bird Database
             </span>
@@ -33,7 +33,7 @@ const DefaultHeader = () => {
           <nav className="hidden md:flex items-center gap-6">
             <button onClick={() => scrollToSection('search-section')} className={btnClass}>Search birds</button>
             <button onClick={() => scrollToSection('database-section')} className={btnClass}>Bird database</button>
-            <Link to="/match" className={location.pathname === '/match' ? activeBtnClass : btnClass}>Match sound</Link>
+            <Link to="/match" className={location.pathname === '/match' ? activeBtnClass : btnClass}>Audio capture</Link>
           </nav>
         </div>
       </div>

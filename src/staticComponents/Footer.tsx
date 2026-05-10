@@ -16,23 +16,27 @@ const Footer = () => {
           &copy; {new Date().getFullYear()} New Zealand Bird Sound Database. All rights reserved.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-6">
-          <Link to="/legal#privacy" className={linkClasses}>
+          <Link to="/legal" className={`${linkClasses} md:hidden`}>
+            Legal
+          </Link>
+
+          <Link to="/legal#privacy" className={`${linkClasses} hidden md:inline`}>
             Privacy policy
           </Link>
-          <Link to="/legal#terms" className={linkClasses}>
+          <Link to="/legal#terms" className={`${linkClasses} hidden md:inline`}>
             Terms of service
           </Link>
-          <Link to="/legal#cookies" className={linkClasses}>
+          <Link to="/legal#cookies" className={`${linkClasses} hidden lg:inline`}>
             Cookie settings
           </Link>
-          <Link to="/legal#data" className={linkClasses}>
+          <Link to="/legal#data" className={`${linkClasses} hidden lg:inline`}>
             Data source
           </Link>
           <a
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-white/70 transition-colors"
+            className="hidden xl:inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-white/70 transition-colors"
             aria-label="GitHub repository"
           >
             <Github className="w-4 h-4" />
