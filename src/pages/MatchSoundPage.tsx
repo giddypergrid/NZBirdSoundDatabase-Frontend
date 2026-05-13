@@ -27,29 +27,31 @@ const MatchSoundPage: React.FC = () => {
               Capture audio or upload a file and we'll identify the most likely bird species.
             </p>
             {' '}
-            <button
-              onClick={() => setShowBirds(v => !v)}
-              className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-white/10 hover:bg-white/20 text-white/50 hover:text-white text-xs font-bold transition-colors align-middle"
-              aria-label="Show supported birds"
-            >
-              !
-            </button>
+            <span className="relative inline-block align-middle">
+              <button
+                onClick={() => setShowBirds(v => !v)}
+                className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-yellow-400/20 hover:bg-yellow-400/40 text-yellow-300 text-xs font-bold transition-colors"
+                aria-label="Show supported birds"
+              >
+                !
+              </button>
 
-            {showBirds && (
-              <div className="mt-4 text-left max-w-md mx-auto bg-forest-700/50 border border-white/10 rounded-xl p-4">
-                <p className="text-xs text-white/50 mb-3 leading-relaxed">
-                  We can identify these {classifiedBirds.length} birds. Some birds have been
-                  excluded due to insufficient or unevenly distributed audio samples in our database.
-                </p>
-                <ul className="space-y-1 max-h-48 overflow-y-auto pr-1">
-                  {classifiedBirds.map(b => (
-                    <li key={b.eBird} className="text-xs text-white/40">
-                      {b.common_name} <span className="text-white/20">({b.eBird})</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+              {showBirds && (
+                <div className="absolute left-1/2 -translate-x-1/2 top-7 z-50 w-72 text-left bg-yellow-950/95 border border-yellow-400/30 rounded-xl p-4 shadow-xl">
+                  <p className="text-xs text-yellow-200/70 mb-3 leading-relaxed">
+                    We can only match these birds below because some species lack sufficient
+                    or consistent audio data in our database.
+                  </p>
+                  <ul className="space-y-1 max-h-48 overflow-y-auto pr-1">
+                    {classifiedBirds.map(b => (
+                      <li key={b.eBird} className="text-xs text-yellow-100/50">
+                        {b.common_name} <span className="text-yellow-100/25">({b.eBird})</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </span>
           </div>
 
           <ClassifyUpload />

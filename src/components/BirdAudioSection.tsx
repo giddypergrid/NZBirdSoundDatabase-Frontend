@@ -13,7 +13,7 @@ type Props = {
 const BirdAudio = ({bird}: Props) => {
   const [filters, setFilters] = useState<BirdSoundFilterParams>({});
   const { data: birdSounds = [], isLoading } = useBirdSoundList(bird, filters);
-  const hasSounds = birdSounds.length > 0;
+  const hasSounds = !isLoading && birdSounds.length > 0;
   const stations = useMemo(() => {
     const set = new Set(birdSounds.map((s) => s.station).filter(Boolean) as string[]);
     return Array.from(set).sort();
@@ -65,6 +65,10 @@ const BirdAudio = ({bird}: Props) => {
             )}
           </div>
         </>
+      ) : isLoading ? (
+        <div className="flex items-center justify-center h-32">
+          <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+        </div>
       ) : (
         <div className="px-6 py-5 border-b border-white/10 shrink-0">
           <h3 className="text-2xl font-bold text-white">No Sound available</h3>
