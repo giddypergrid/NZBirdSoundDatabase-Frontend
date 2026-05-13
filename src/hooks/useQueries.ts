@@ -1,7 +1,6 @@
 import { useQuery, useQueries } from '@tanstack/react-query';
 import axios from 'axios';
-import { birdApi, soundApi, imageApi } from 'services/api';
-import apiClient from 'services/api';
+import apiClient, { birdApi, soundApi, imageApi } from 'services/api';
 import { Bird, BirdSound, BirdSoundFilterParams } from 'types/bird';
 
 // ==================== Bird Queries ====================
@@ -45,7 +44,7 @@ export const useBirdSoundList = (bird: Bird, filters?: BirdSoundFilterParams) =>
         let page = data as { results: BirdSound[]; next: string | null };
         allSounds.push(...page.results);
         while (page.next) {
-          const nextResponse = await apiClient.get(page.next);
+          const nextResponse = await apiClient.get(page.next.replace(/^http:/, 'https:'));
           page = nextResponse.data as { results: BirdSound[]; next: string | null };
           allSounds.push(...page.results);
         }
