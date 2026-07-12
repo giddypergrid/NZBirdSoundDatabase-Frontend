@@ -9,9 +9,9 @@ type Props = {
 
 export default function SimpleAudioPlayer({ src, title }: Props) {
   return (
-    <div className="w-full bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+    <div className="w-full bg-card-2 border border-hair rounded-xl overflow-hidden">
       {title && (
-        <p className="text-sm font-medium text-white/80 truncate px-4 pt-3 pb-1">{title}</p>
+        <p className="text-sm font-medium text-ink truncate px-4 pt-3 pb-1">{title}</p>
       )}
       <AudioPlayer
         src={src}

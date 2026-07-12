@@ -20,19 +20,19 @@ const LegalPage: React.FC = () => {
   }, [location]);
 
   return (
-    <div className="min-h-screen bg-forest-800 flex flex-col">
+    <div className="min-h-screen bg-paper flex flex-col">
       <DefaultHeader />
 
       <main className="flex-1 py-16">
-        <div className="max-w-3xl mx-auto px-6 text-white/80">
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+        <div className="max-w-3xl mx-auto px-6 text-ink/80">
+          <h1 className="text-3xl md:text-4xl font-bold text-ink mb-2">
             Legal & Contact
           </h1>
-          <p className="text-sm text-white/40 mb-10">
+          <p className="text-sm text-subtle mb-10">
             New Zealand Bird Sound Database
           </p>
           <section id="privacy" className="scroll-mt-24 mb-14">
-            <h2 className="text-2xl font-semibold text-white mb-4">
+            <h2 className="text-2xl font-semibold text-ink mb-4">
               Privacy policy
             </h2>
             <p className="mb-3">
@@ -53,7 +53,7 @@ const LegalPage: React.FC = () => {
           </section>
 
           <section id="terms" className="scroll-mt-24 mb-14">
-            <h2 className="text-2xl font-semibold text-white mb-4">
+            <h2 className="text-2xl font-semibold text-ink mb-4">
               Terms of service
             </h2>
             <p className="mb-3">
@@ -73,7 +73,7 @@ const LegalPage: React.FC = () => {
           </section>
 
           <section id="cookies" className="scroll-mt-24 mb-14">
-            <h2 className="text-2xl font-semibold text-white mb-4">
+            <h2 className="text-2xl font-semibold text-ink mb-4">
               Cookie settings
             </h2>
             <p className="mb-3">
@@ -94,14 +94,14 @@ const LegalPage: React.FC = () => {
                 } catch {}
                 window.location.reload();
               }}
-              className="text-sm px-4 py-2 rounded-md border border-white/20 hover:bg-white/5 transition-colors"
+              className="text-sm px-4 py-2 rounded-md border border-hair-strong text-ink hover:bg-card-2 transition-colors"
             >
               Reset cookie notice
             </button>
           </section>
 
           <section id="data" className="scroll-mt-24 mb-14">
-            <h2 className="text-2xl font-semibold text-white mb-4">
+            <h2 className="text-2xl font-semibold text-ink mb-4">
               Data source & license
             </h2>
             <p className="mb-3">
@@ -110,7 +110,7 @@ const LegalPage: React.FC = () => {
                 href="https://www.kaggle.com/datasets/ollypowell/new-zealand-bird-sound"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:text-white"
+                className="text-brand underline hover:text-brand-600"
               >
                 New Zealand Wildlife Short Sound Crops
               </a>{' '}
@@ -120,7 +120,7 @@ const LegalPage: React.FC = () => {
                 href="https://www.doc.govt.nz/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:text-white"
+                className="text-brand underline hover:text-brand-600"
               >
                 New Zealand Department of Conservation – Te Papa Atawhai
               </a>
@@ -133,7 +133,7 @@ const LegalPage: React.FC = () => {
                 href="https://creativecommons.org/licenses/by/4.0/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:text-white"
+                className="text-brand underline hover:text-brand-600"
               >
                 Creative Commons Attribution 4.0 International (CC BY 4.0)
               </a>{' '}
@@ -155,7 +155,7 @@ const LegalPage: React.FC = () => {
               give appropriate credit to the creator, link to the license, and
               indicate if changes were made.
             </p>
-            <p className="mb-4 text-sm text-white/50">
+            <p className="mb-4 text-sm text-subtle">
               Suggested citation: Powell, O. (2024).{' '}
               <em>New Zealand Wildlife Short Sound Crops</em>. Kaggle, on
               behalf of the NZ Department of Conservation. Licensed under
@@ -166,7 +166,7 @@ const LegalPage: React.FC = () => {
                 href="https://www.kaggle.com/datasets/ollypowell/new-zealand-bird-sound"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white text-forest-900 font-medium hover:bg-white/90 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-brand text-white font-medium hover:bg-brand-600 transition-colors"
               >
                 Download on Kaggle
               </a>
@@ -174,7 +174,7 @@ const LegalPage: React.FC = () => {
                 href="https://creativecommons.org/licenses/by/4.0/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-white/20 text-white/80 hover:bg-white/5 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-hair-strong text-ink hover:bg-card-2 transition-colors"
               >
                 View CC BY 4.0 license
               </a>
@@ -182,18 +182,18 @@ const LegalPage: React.FC = () => {
                 href="https://github.com/giddypergrid/NZBirdSoundDatabase-Backend"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-white/20 text-white/80 hover:bg-white/5 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-hair-strong text-ink hover:bg-card-2 transition-colors"
               >
                 View backend source on GitHub
               </a>
             </div>
-            <p className="mt-4 text-sm text-white/50">
+            <p className="mt-4 text-sm text-subtle">
               This website's backend source code is open and available at{' '}
               <a
                 href="https://github.com/giddypergrid/NZBirdSoundDatabase-Backend"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:text-white"
+                className="text-brand underline hover:text-brand-600"
               >
                 github.com/giddypergrid/NZBirdSoundDatabase-Backend
               </a>
@@ -202,13 +202,13 @@ const LegalPage: React.FC = () => {
           </section>
 
           <section id="contact" className="scroll-mt-24 mb-14">
-            <h2 className="text-2xl font-semibold text-white mb-4">Contact</h2>
+            <h2 className="text-2xl font-semibold text-ink mb-4">Contact</h2>
             <p className="mb-4">
               Questions, feedback or takedown requests are welcome.
             </p>
             <a
               href="mailto:sunziyuan000@gmail.com"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white text-forest-900 font-medium hover:bg-white/90 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-brand text-white font-medium hover:bg-brand-600 transition-colors"
             >
               <Mail className="w-4 h-4" />
               sunziyuan000@gmail.com

@@ -63,11 +63,12 @@ const InfiniteScrollArea = <T, K extends keyof T>({ItemComponent, BatchSize, Ite
                 {items.slice(0, buttomItemIndex + 1).map((item: T, index)=>{
                     const isSelected = selectedKey !== undefined && item[ItemIndexType] === selectedKey;
                     return(
-                        <li 
-                            key={String(item[ItemIndexType])} 
-                            className={`cursor-pointer transition-all duration-200 rounded-2xl ${
+                        <li
+                            key={String(item[ItemIndexType])}
+                            className={`animate-card cursor-pointer transition-all duration-200 rounded-2xl ${
                               isSelected ? 'ring-2 ring-white/40 shadow-lg shadow-white/5' : 'hover:-translate-y-1'
                             }`}
+                            style={{ animationDelay: `${(index % BatchSize) * 45}ms` }}
                             onClick={() => onItemClick && onItemClick(item)}
                         >
                             <ItemComponent 
