@@ -25,15 +25,15 @@ const BirdAudio = ({bird}: Props) => {
   }, [birdSounds]);
 
   return (
-    <div className="w-full bg-forest-700/30 rounded-2xl overflow-hidden flex flex-col border border-white/10">
+    <div className="w-full bg-card rounded-2xl overflow-hidden flex flex-col border border-hair">
       {/* Header */}
 
       {hasSounds ? (
         <>
-          <div className="px-6 py-5 border-b border-white/10 shrink-0">
-            <p className="text-xs text-white/50 font-medium uppercase tracking-wider mb-1">Listen</p>
-            <h3 className="text-2xl font-bold text-white">Sounds recorded</h3>
-            <p className="text-sm text-white/40 mt-1">
+          <div className="px-6 py-5 border-b border-hair shrink-0">
+            <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-subtle mb-1">Listen</p>
+            <h3 className="text-2xl font-bold text-ink">Sounds recorded</h3>
+            <p className="text-sm text-faint mt-1">
               {isLoading ? 'Loading...' : `Sort by call type, season, or behavior to isolate the sound you're after. ${birdSounds.length} recordings available.`}
             </p>
           </div>
@@ -49,8 +49,8 @@ const BirdAudio = ({bird}: Props) => {
             {isLoading ? (
               <div className="flex items-center justify-center h-64">
                 <div className="flex flex-col items-center gap-2">
-                  <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-                  <span className="text-sm text-white/40">Loading audio files...</span>
+                  <div className="w-6 h-6 border-2 border-hair border-t-brand rounded-full animate-spin" />
+                  <span className="text-sm text-subtle">Loading audio files...</span>
                 </div>
               </div>
             ) : (
@@ -67,11 +67,11 @@ const BirdAudio = ({bird}: Props) => {
         </>
       ) : isLoading ? (
         <div className="flex items-center justify-center h-32">
-          <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+          <div className="w-6 h-6 border-2 border-hair border-t-brand rounded-full animate-spin" />
         </div>
       ) : (
-        <div className="px-6 py-5 border-b border-white/10 shrink-0">
-          <h3 className="text-2xl font-bold text-white">No Sound available</h3>
+        <div className="px-6 py-5 border-b border-hair shrink-0">
+          <h3 className="text-2xl font-bold text-ink">No Sound available</h3>
         </div>
       )}
     </div>

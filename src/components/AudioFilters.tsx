@@ -42,7 +42,7 @@ const AudioFilters: React.FC<Props> = ({ onFilterChange, stations, recordingMode
 
   return (
     stations.length > 0 && recordingModes.length > 0 && (
-    <div className="border-b border-white/10">
+    <div className="border-b border-hair">
       {/* Recording mode tabs */}
       <div className="flex items-center gap-1 px-5 py-3 overflow-x-auto scrollbar-thin">
         {recordingModes.map((mode) => (
@@ -51,8 +51,8 @@ const AudioFilters: React.FC<Props> = ({ onFilterChange, stations, recordingMode
             onClick={() => handleModeClick(mode)}
             className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
               activeMode === mode
-                ? 'bg-white/10 text-white border border-white/30'
-                : 'text-white/40 hover:text-white/60 hover:bg-white/5'
+                ? 'bg-brand text-white border border-brand'
+                : 'text-subtle hover:text-ink hover:bg-card-2'
             }`}
           >
             {mode}
@@ -64,12 +64,12 @@ const AudioFilters: React.FC<Props> = ({ onFilterChange, stations, recordingMode
           <button
             onClick={() => setShowStation(!showStation)}
             className={`ml-auto px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1.5 ${
-              station ? 'text-white' : 'text-white/40 hover:text-white/60'
+              station ? 'text-ink' : 'text-subtle hover:text-ink'
             }`}
           >
             <Filter className="w-3 h-3" />
             Station
-            {station && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+            {station && <span className="w-1.5 h-1.5 rounded-full bg-brand" />}
           </button>
         )}
 
@@ -77,7 +77,7 @@ const AudioFilters: React.FC<Props> = ({ onFilterChange, stations, recordingMode
         {hasActiveFilters && (
           <button
             onClick={clearAll}
-            className="px-2.5 py-1.5 rounded-full text-xs font-medium text-white/30 hover:text-white/50 transition-colors flex items-center gap-1"
+            className="px-2.5 py-1.5 rounded-full text-xs font-medium text-subtle hover:text-ink transition-colors flex items-center gap-1"
           >
             <X className="w-3 h-3" /> Clear
           </button>
@@ -90,11 +90,11 @@ const AudioFilters: React.FC<Props> = ({ onFilterChange, stations, recordingMode
           <select
             value={station}
             onChange={(e) => handleStationChange(e.target.value)}
-            className="w-full max-w-xs bg-forest-700 border border-white/15 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-all"
+            className="w-full max-w-xs bg-card border border-hair-strong rounded-lg px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand transition-all"
           >
-            <option value="" className="bg-forest-700 text-white">All stations</option>
+            <option value="" className="bg-card text-ink">All stations</option>
             {stations.map((s) => (
-              <option key={s} value={s} className="bg-forest-700 text-white">{s}</option>
+              <option key={s} value={s} className="bg-card text-ink">{s}</option>
             ))}
           </select>
         </div>

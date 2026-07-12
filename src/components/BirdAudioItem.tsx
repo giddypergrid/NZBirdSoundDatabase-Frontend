@@ -17,16 +17,16 @@ const BirdAudioItem = forwardRef<HTMLDivElement, Props>(({ item }, ref) => {
     .slice(0, 40);
 
   return (
-    <div ref={ref} className="border-b border-white/5 py-3 px-2">
+    <div ref={ref} className="border-b border-hair py-3 px-2">
       <div className="flex items-start gap-3 mb-2">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-0.5">
             {item.recording_mode && (
-              <span className="text-xs text-white/60 font-medium">{item.recording_mode}</span>
+              <span className="text-xs text-subtle font-medium">{item.recording_mode}</span>
             )}
           </div>
-          <h4 className="text-sm font-semibold text-white truncate">{displayName}</h4>
-          <p className="text-xs text-white/40 mt-0.5 truncate">
+          <h4 className="text-sm font-semibold text-ink truncate">{displayName}</h4>
+          <p className="text-xs text-faint mt-0.5 truncate">
             {item.station ? `Recorded at ${item.station}` : item.filename}
           </p>
         </div>

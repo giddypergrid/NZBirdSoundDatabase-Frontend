@@ -15,10 +15,10 @@ const BirdDetailPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-forest-800">
+      <div className="min-h-screen bg-paper">
         <DefaultHeader />
         <div className="flex items-center justify-center h-[60vh]">
-          <div className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-hair border-t-brand rounded-full animate-spin" />
         </div>
       </div>
     );
@@ -26,11 +26,11 @@ const BirdDetailPage: React.FC = () => {
 
   if (!bird) {
     return (
-      <div className="min-h-screen bg-forest-800">
+      <div className="min-h-screen bg-paper">
         <DefaultHeader />
         <div className="max-w-4xl mx-auto px-6 py-20 text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">Bird not found</h2>
-          <Link to="/" className="text-white/60 hover:text-white transition-colors">
+          <h2 className="text-2xl font-bold text-ink mb-4">Bird not found</h2>
+          <Link to="/" className="text-subtle hover:text-ink transition-colors">
             &larr; Back to home
           </Link>
         </div>
@@ -39,7 +39,7 @@ const BirdDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-forest-800 flex flex-col">
+    <div className="min-h-screen bg-paper flex flex-col">
       <DefaultHeader />
 
       <main className="flex-1">
@@ -47,7 +47,7 @@ const BirdDetailPage: React.FC = () => {
         <div className="max-w-6xl mx-auto px-6 pt-6">
           <Link
             to="/"
-            className="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-white/70 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-subtle hover:text-ink transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to all birds
@@ -59,36 +59,36 @@ const BirdDetailPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Left: Description */}
             <div>
-              <p className="text-xs text-white/50 font-medium uppercase tracking-wider mb-2">
+              <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-subtle mb-2">
                 Know this bird well
               </p>
-              <h1 className="text-4xl font-bold text-white mb-2">
+              <h1 className="text-4xl font-bold text-ink mb-2">
                 {bird.common_name}
               </h1>
-              <p className="text-lg text-white/50 italic mb-6">
+              <p className="text-lg text-subtle italic mb-6">
                 {bird.scientific_name}
               </p>
               {bird.naughty_description && (
-                <p className="text-sm text-amber-200/80 italic mb-5 leading-relaxed">
+                <p className="text-sm text-ink/75 italic mb-5 leading-relaxed border-l-2 border-gold pl-3">
                   &ldquo;{bird.naughty_description}&rdquo;
                 </p>
               )}
 
-              <div className="space-y-4 text-sm text-white/70 leading-relaxed">
+              <div className="space-y-4 text-sm text-ink/80 leading-relaxed">
                 {bird.description ? (
                   <p>{bird.description}</p>
                 ) : (
-                  <p className="text-white/40 italic">
+                  <p className="text-faint italic">
                     No description available yet for this bird.
                   </p>
                 )}
               </div>
 
-              <div className="mt-6 p-4 bg-forest-700/100 border border-white/10 rounded-xl">
-                <p className="text-xs text-white/50 font-medium uppercase tracking-wider mb-2">
+              <div className="mt-6 p-4 bg-card border border-hair rounded-xl">
+                <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-subtle mb-2">
                   What it sounds like
                 </p>
-                <p className="text-sm text-white/70 leading-relaxed">
+                <p className="text-sm text-ink/80 leading-relaxed">
                   {bird.sound_description || 'No sound description available yet.'}
                 </p>
               </div>
@@ -96,7 +96,7 @@ const BirdDetailPage: React.FC = () => {
 
             {/* Right: Image gallery */}
             <div className="flex flex-col gap-4">
-              <div className="relative aspect-[4/3] bg-forest-700/50 rounded-2xl overflow-hidden border border-white/10">
+              <div className="relative aspect-[4/3] bg-card-2 rounded-2xl overflow-hidden border border-hair">
                 {images.length === 0 ? (
                   <ImageNotFound message="No photos yet" />
                 ) : (
@@ -135,7 +135,7 @@ const BirdDetailPage: React.FC = () => {
                       onClick={() => setActiveImageIndex(idx)}
                       className={`w-20 h-16 rounded-lg overflow-hidden shrink-0 border-2 transition-all ${
                         idx === activeImageIndex
-                          ? 'border-white/60 opacity-100'
+                          ? 'border-brand opacity-100'
                           : 'border-transparent opacity-50 hover:opacity-80'
                       }`}
                     >

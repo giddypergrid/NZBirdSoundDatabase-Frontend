@@ -31,61 +31,52 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-forest-800 flex flex-col">
+    <div className="min-h-screen bg-paper flex flex-col">
       <DefaultHeader />
 
       {/* Hero Section */}
       <HeroSection birds={allBirds} />
 
-      {/* Search Section */}
-      <section id="search-section" className="bg-forest-900/50 py-16">
-        <div className="max-w-4xl mx-auto px-6 text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+      {/* Search + Browse — one seamless section */}
+      <section id="search-section" className="w-full max-w-6xl mx-auto px-6 py-12">
+        {/* Search */}
+        <div className="max-w-4xl">
+          <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-subtle mb-2.5">Search</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-ink">
             Find bird sounds in our database
           </h2>
-        </div>
-        <div className="max-w-4xl mx-auto px-6">
+          <p className="text-sm text-subtle mt-2 mb-6">
+            Search by name, or describe the bird and we'll rank the closest matches.
+          </p>
           <SearchBar onSearch={handleSearch} allBirds={allBirds} />
           {validationError && (
-            <div className="mt-4 w-full h-3 max-w-2xl mx-auto bg-yellow-500/20 border border-yellow-500/50 rounded-lg p-4 text-center flex items-center justify-center">
-              <p className="text-yellow-200 text-sm">{validationError}</p>
+            <div className="mt-4 max-w-2xl bg-yellow-100 border border-yellow-300 rounded-lg px-4 py-3">
+              <p className="text-yellow-800 text-sm">{validationError}</p>
             </div>
           )}
           {searchError && (
-            <div className="mt-4 w-full h-3 max-w-2xl mx-auto bg-red-500/20 border border-red-500/50 rounded-lg p-4 text-center flex items-center justify-center">
-              <p className="text-red-200 text-sm">{searchError}</p>
+            <div className="mt-4 max-w-2xl bg-red-100 border border-red-300 rounded-lg px-4 py-3">
+              <p className="text-red-700 text-sm">{searchError}</p>
             </div>
           )}
         </div>
-      </section>
 
-      {/* Bird Cards Grid */}
-      <section id="database-section" className="py-12 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <p className="text-xs text-white/50 font-medium uppercase tracking-wider mb-1">
-                {activeMode === 'description' ? 'Closest matches' : 'Browse'}
-              </p>
-              <h2 className="text-2xl md:text-3xl font-bold text-white">
-                {isSearching
-                  ? 'Searching...'
-                  : filteredBirds.length === allBirds.length
-                    ? 'All birds in the database'
-                    : activeMode === 'description'
-                      ? `Top ${filteredBirds.length} matches`
-                      : `${filteredBirds.length} birds found`}
-              </h2>
-              <p className="text-sm text-white/40 mt-1">
-                {activeMode === 'description' && !isSearching && filteredBirds.length > 0
-                  ? 'Ranked by how well each bird fits your description.'
-                  : 'Click a card to explore photos, details, and recordings.'}
-              </p>
-            </div>
+        {/* Results grid — flows directly from search, no seam */}
+        <div id="database-section" className="mt-10">
+          <div className="flex items-center justify-between mb-6">
+            <p className="text-sm font-medium text-ink">
+              {isSearching
+                ? 'Searching…'
+                : filteredBirds.length === allBirds.length
+                  ? `Browse all ${allBirds.length} birds`
+                  : activeMode === 'description'
+                    ? `Top ${filteredBirds.length} matches`
+                    : `${filteredBirds.length} birds found`}
+            </p>
             {filteredBirds.length !== allBirds.length && (
               <button
                 onClick={() => handleSearch('', 'name')}
-                className="text-sm text-white/60 hover:text-white transition-colors"
+                className="text-sm text-subtle hover:text-ink transition-colors"
               >
                 View all
               </button>
@@ -95,7 +86,7 @@ const HomePage: React.FC = () => {
           {isSearching ? (
             <div className="flex flex-col items-center justify-center py-16">
               <Lottie animationData={loadingBirdAnimation} className="w-32 h-32" />
-              <p className="text-white/60 mt-4">Searching...</p>
+              <p className="text-subtle mt-4">Searching...</p>
             </div>
           ) : (
             <InfiniteScrollArea<Bird, 'eBird'>
@@ -104,6 +95,7 @@ const HomePage: React.FC = () => {
               ItemIndexType="eBird"
               items={filteredBirds}
               className="w-full"
+              listClassName="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
               onItemClick={handleBirdClick}
             />
           )}
