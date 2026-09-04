@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# NZ Bird Sound Database, web client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Live at [nzbirddatabase.com](https://nzbirddatabase.com)**
 
-## Available Scripts
+The React client. Browse 138 New Zealand bird species, play their calls, upload a recording to have
+a model identify it, or describe a bird in plain words and get ranked matches.
 
-In the project directory, you can run:
+Part of a four-repository project:
 
-### `npm start`
+| Repository | What it holds |
+|---|---|
+| [NZBirdSoundDatabase-AWS](https://github.com/giddypergrid/NZBirdSoundDatabase-AWS) | The deployed backend, ECS Fargate, and the test suites. **Start here.** |
+| [NZBirdSoundDatabase-Backend](https://github.com/giddypergrid/NZBirdSoundDatabase-Backend) | The Django REST application and the machine learning pipeline |
+| [NZBirdSoundDatabase-Prep](https://github.com/giddypergrid/NZBirdSoundDatabase-Prep) | Data preparation and model training |
+| this one | The client |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Two ways to find a bird
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+  by name              "kea"            ──►  text match on the species list
+  by description       "screeches       ──►  SentenceTransformer embeds the phrase,
+                        at night"            cosine similarity ranks all 138 descriptions
+  by sound             upload .wav      ──►  BirdNET + LightGBM return an eBird code
+```
 
-### `npm test`
+The description search is the one worth trying. Nobody remembers a species name, but most people can
+describe what they heard.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Notes on the client
 
-### `npm run build`
+Every species carries a one-line character description as well as a formal one, "a suited-up
+hooligan singing opera before picking a fight" for the Australian magpie. Those exist because a grid
+of 138 scientific names is unreadable, and a person scanning for the bird in their garden needs
+something they can match against a memory.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Heavy endpoints can answer `503` on purpose when the backend is shedding load, so classification and
+description search both handle that as a normal state and ask the user to retry, rather than
+surfacing an error.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+React, TypeScript, Create React App. Talks to `api.nzbirddatabase.com`.
